@@ -43,6 +43,17 @@ pub struct Lcg128Xsl64 {
 pub type Pcg64 = Lcg128Xsl64;
 
 impl Lcg128Xsl64 {
+    /// This dumps the state and increment to be reloaded
+    pub fn dump(&self) -> (u128, u128) {
+        (self.state, self.increment)
+    }
+
+    /// This reinitializes the randomness based on a previously dumped state.
+    pub fn reinit(state: u128, increment: u128) -> Self {
+        Lcg128Xsl64 { state, increment }
+    }
+    
+
     /// Multi-step advance functions (jump-ahead, jump-back)
     ///
     /// The method used here is based on Brown, "Random Number Generation
